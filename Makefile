@@ -7,5 +7,8 @@ docker-postgres: ## Start the docker-postgres container
 docker-rabbitmq: ## Start the docker-rabbitmq container
 	docker-compose up --build -d docker-rabbitmq
 
+docker-redis: ## Start the docker-redis container
+	docker-compose up --build -d docker-redis
+
 down:  ## Stop docker containers
 	docker-compose down ${args}

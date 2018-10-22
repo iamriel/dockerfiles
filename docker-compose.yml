@@ -19,6 +19,14 @@ services:
       - 5432:5432
     command: -c fsync=off -c synchronous_commit=off -c full_page_writes=off
 
+  docker-redis:
+    container_name: docker-redis
+    restart: always
+    build:
+      context: ./redis/
+    ports:
+      - 6379:6379
+
   docker-rabbitmq:
     container_name: docker-rabbitmq
     restart: always
