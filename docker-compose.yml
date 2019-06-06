@@ -12,11 +12,12 @@ services:
     volumes:
       - test_postgres_data_dev:/var/lib/postgresql/data
     environment:
+      - POSTGRES_MULTIPLE_DATABASES=pdfsaas,carrefour,codefolio
       - POSTGRES_USER=docker_postgres
-      - POSTGRES_DB=docker_postgres
+      # - POSTGRES_DB=docker_postgres
       - POSTGRES_PASSWORD=docker_postgres
     ports:
-      - 5432:5432
+      - 5435:5432
     command: -c fsync=off -c synchronous_commit=off -c full_page_writes=off
 
   docker-redis:
