@@ -2,6 +2,9 @@ version: '3.2'
 
 volumes:
   test_postgres_data_dev: {}
+  mysql_db: {}
+  mongo_db: {}
+
 
 services:
 
@@ -12,13 +15,36 @@ services:
     volumes:
       - test_postgres_data_dev:/var/lib/postgresql/data
     environment:
-      - POSTGRES_MULTIPLE_DATABASES=pdfsaas,carrefour,codefolio
+      - POSTGRES_MULTIPLE_DATABASES=pdfsaas,carrefour,codefolio,doxa
       - POSTGRES_USER=docker_postgres
       # - POSTGRES_DB=docker_postgres
       - POSTGRES_PASSWORD=docker_postgres
     ports:
       - 5435:5432
     command: -c fsync=off -c synchronous_commit=off -c full_page_writes=off
+
+  docker-mongo:
+    image: mongo:4.2
+    restart: always
+    container_name: docker-mongo
+    volumes:
+      - mongo_db:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  docker-mysql:
+    restart: always
+    container_name: docker-mysql
+    build: ./mysql
+    volumes:
+      - mysql_db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
 
   docker-redis:
     container_name: docker-redis
