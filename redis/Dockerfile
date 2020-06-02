@@ -1,4 +1,4 @@
-FROM redis:3.2.10-alpine
+FROM redis:5.0-alpine
 
 COPY healthcheck.sh /usr/local/bin/
 
